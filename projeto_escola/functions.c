@@ -203,7 +203,7 @@ void new_teacher(People teacher[],
     
 }
 
-void new_discipline(Disciplines discipline[], int *count,  int code, char name[], int semester, char teacher[]){
+void new_discipline(Disciplines discipline[], int *count,  int code, char name[], int semester, int teacher[]){
     
     int i = 0;
     
@@ -218,13 +218,73 @@ void new_discipline(Disciplines discipline[], int *count,  int code, char name[]
 
     discipline[*count].semester = semester;
 
-    i = 0;
 
-    while (teacher[i] != '\0')
-    {
-        discipline[*count].teacher[i] = teacher[i];
-        i++;
-    }
+    discipline[*count].teacher = teacher;
         
+    
+        
+    
+}
+
+// aux é a variável que conta quantos nomes com a mesma letra há no vetor
+// position é a variável que guarda a posição da próxima cadeia de nomes com a mesma inicial
+
+void alphabetic(People a[], int *count){
+    int i, j, aux = 0, position = 0;
+    int l = 1;
+    char temp;
+    
+    for (i = 0; i < *count; i++)
+    {
+        for (j = i + 1; j <= *count; j++)
+        {
+            if (a[i].name[0] > a[j].name[0])
+            {
+                temp = a[j].name[0];
+                a[j].name[0] = a[i].name[0];
+                a[i].name[0] = temp;
+            }
+            
+        }
+        
+    }
+    
+    
+    for (i = 0; i < *count; i++)
+    {
+        while (a[position].name[0] == a[position + 1].name[0])
+        {
+            aux++;
+        }
+        
+        for (j = 0; j < aux; j++)
+        {
+            for ( int k = j + 1; k <= aux; k++)
+            {
+                while (a[aux].name[l] == a[aux + 1].name[l] || a[aux].name[l] == '\0')
+                {
+                    l++;
+                }
+                
+
+                if (a[i].name[l] > a[j].name[l])
+                {
+                    temp = a[j].name[1];
+                    a[j].name[1] = a[i].name[1];
+                    a[i].name[1] = temp;
+                }
+            }
+            
+        }
+
+        position += aux;
+        aux = 0;
+    }
+    
+
+
+    
+    
+    
     
 }

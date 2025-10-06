@@ -22,7 +22,7 @@ typedef struct d{
     int code;
     char name[MAX_STR];
     int semester;
-    char teacher[MAX_STR]; 
+    int teacher; 
 } Disciplines;
 
 
