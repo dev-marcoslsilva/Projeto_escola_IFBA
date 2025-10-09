@@ -22,8 +22,15 @@ typedef struct d{
     int code;
     char name[MAX_STR];
     int semester;
-    int teacher; 
+    int teacher_registration; 
 } Disciplines;
+
+typedef struct disciplines_and_students
+{
+    int registration;
+    int code;
+}Student_per_discipline;
+
 
 
 int main(){
@@ -31,7 +38,10 @@ int main(){
     People student[TAM_VETOR];
     People teacher[TAM_VETOR];
     Disciplines discipline[TAM_VETOR];
-    int count = 0;    
+    int count_students = 0;    
+    int count_teachers;
+    int count_disciplines;
+    int count_students_per_disciplines;
 
 
 

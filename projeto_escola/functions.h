@@ -29,3 +29,15 @@ void new_teacher(People teacher[],
 void new_discipline(Disciplines discipline[], int *count, int code, char name[], int semester, int teacher[]);
 
 void alphabetic(People a[], int *count);
+
+void insert_student(Student_per_discipline s_and_d[], People s[], Disciplines d[], int registration, int code, int *count);
+
+void delete_student_in_discipline(Student_per_discipline a[], int registration, int code, int *count);
+
+void students_in_three_disciplines(Student_per_discipline a[], People s[], int *count_s_p_d, int *count_s);
+
+void overcharge_disciplines(Student_per_discipline s_p_d[], Disciplines d[], People t[], int *count_s_p_d, int *count_t);
+
+void str_research(People t[], People s[], char str[], int *count_t, int *count_s);
+
+void birthday_order(People a[], int *count);
