@@ -26,7 +26,7 @@ void new_teacher(People teacher[],
                 int cpf
 );
 
-void new_discipline(Disciplines discipline[], int *count, int code, char name[], int semester, int teacher[]);
+void new_discipline(Disciplines discipline[], People teacher[], int *count_disciplines, int *count_teachers, int code, char name[], int semester, int teacher_registration);
 
 void alphabetic(People a[], int *count);
 

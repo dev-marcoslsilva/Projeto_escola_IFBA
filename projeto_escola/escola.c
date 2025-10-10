@@ -31,19 +31,15 @@ typedef struct disciplines_and_students
     int code;
 }Student_per_discipline;
 
-
+People student[TAM_VETOR];
+People teacher[TAM_VETOR];
+Disciplines discipline[TAM_VETOR];    
+int count_students = 0;    
+int count_teachers;
+int count_disciplines;
+int count_students_per_disciplines;
 
 int main(){
-    
-    People student[TAM_VETOR];
-    People teacher[TAM_VETOR];
-    Disciplines discipline[TAM_VETOR];
-    int count_students = 0;    
-    int count_teachers;
-    int count_disciplines;
-    int count_students_per_disciplines;
-
-
 
     main_screen();
 
