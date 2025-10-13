@@ -30,7 +30,7 @@ void new_discipline(Disciplines discipline[], People teacher[], int *count_disci
 
 void alphabetic(People a[], int *count);
 
-void insert_student(Student_per_discipline s_and_d[], People s[], Disciplines d[], int registration, int code, int *count);
+void insert_student(Student_per_discipline s_and_d[], People s[], Disciplines d[], int registration, int code, int *count, int *count_students, int *count_disciplines);
 
 void delete_student_in_discipline(Student_per_discipline a[], int registration, int code, int *count);
 
