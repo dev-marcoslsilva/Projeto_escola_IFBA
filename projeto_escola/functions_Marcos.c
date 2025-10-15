@@ -1,8 +1,9 @@
 #include <stdio.h>
 #include <time.h>
 #include <string.h>
+#include <stdlib.h>
+#include <Windows.h>
 #include "functions.h"
-#include "escola.c"
 
 #define TRUE 1
 #define FALSE 0
@@ -54,115 +55,140 @@ void main_screen()
         printf("24 - Excluir professor \n");
         printf("25 - Excluir disciplina \n");
         printf("26 - Excluir aluno de uma disciplina \n");
-        printf("27 - Sair");
+        printf("27 - Sair \n");
 
         scanf("%d", &awnser);
+        while (getchar() != '\n');
 
         switch (awnser)
         {
+            int registration, day, month, year, code, semester, teacher_registration;
+            char name[MAX_STR], sex;
+            long long cpf;
         case 1:
-            int registration, day, month, year, cpf;
-            char name, sex;
-            printf("Digite, na respectiva ordem, os dados do aluno (Matrícula, nome, sexo, dia mês e ano de nascimento, cpf: \n)");
-            scanf("%d %s %c %d %d %d %d", &registration, &name, &sex, &day, &month, &year, &cpf);
-            new_student(&student, &count_students, registration, name, sex, day, month, year, cpf);
-            sleep(3);
-            system('clear' || 'cls');
+            
+            printf("Digite o nome do aluno: \n");
+            fgets(name, MAX_STR, stdin);
+            name[strcspn(name, "\n")] = '\0';
+            printf("Digite a Matrícula do aluno: \n");
+            scanf("%d", &registration);
+            printf("Digite o dia do nascimento do aluno: \n");
+            scanf("%d", &day);
+            printf("Digite o mês do aluno: \n");
+            scanf("%d", &month);
+            printf("Digite o ano do aluno: \n");
+            scanf("%d", &year);
+            printf("Digite o sexo do aluno: \n");
+            scanf(" %c", &sex);
+            printf("Digite o cpf do aluno: \n");
+            scanf(" %lld", &cpf);
+
+            new_student(student, &count_students, registration, name, sex, day, month, year, cpf);
             main_screen();
             break;
         case 2:
-            int registration, day, month, year, cpf;
-            char name[MAX_STR], sex;
-            printf("Digite, na respectiva ordem, os dados do professor (Matrícula, nome, sexo, dia mês e ano de nascimento, cpf: \n)");
-            scanf("%d %s %c %d %d %d %d", &registration, &name, &sex, &day, &month, &year, &cpf);
-            new_student(teacher, &count_teachers, registration, name, sex, day, month, year, cpf);
-            sleep(3);
-            system('clear' || 'cls');
+
+            printf("Digite o nome do  professor: \n");
+            fgets(name, MAX_STR, stdin);
+            name[strcspn(name, "\n")] = '\0';
+            printf("Digite a Matrícula do professor: \n");
+            scanf("%d", &registration);
+            printf("Digite o dia do nascimento do professor: \n");
+            scanf("%d", &day);
+            printf("Digite o mês do professor: \n");
+            scanf("%d", &month);
+            printf("Digite o ano do professor: \n");
+            scanf("%d", &year);
+            printf("Digite o sexo do professor (M ou F): \n");
+            scanf(" %c", &sex);
+            printf("Digite o cpf do professor: \n");
+            scanf(" %lld", &cpf);
+
+            new_teacher(teacher, &count_teachers, registration, name, sex, day, month, year, cpf);
+            Sleep(3);
             main_screen();
             break;
         case 3:
-            int code, semester, teacher_registration;
-            char name[MAX_STR];
-            printf("Digite, na respectiva ordem, os dados da disciplina: código, nome, semestre, matrícula do professor responsável \n");
-            scanf("%d %s %d %d", code, name, semester, teacher_registration);
+
+            printf("Digite o Código da disciplina: \n");
+            scanf("%d", &code);
+            printf("Digite a quantidade de semestres da disciplina: \n");
+            scanf("%d", &semester);
+            printf("Digite a matrícula do professor responsável pela disciplina: \n");
+            scanf("%d", &teacher_registration);
+            printf("Digite o nome da disciplina: \n");
+            scanf("%s", name);
             new_discipline(discipline, teacher, &count_disciplines, &count_teachers, code, name, semester, teacher_registration);
-            sleep(3);
-            system('clear' || 'cls');
+            Sleep(3);
+
             main_screen();
             break;
         case 4:
-            int registration, code;
-            printf("Digite, na respectiva ordem, a matrícula do aluno e o código da disciplina \n");
-            scanf("%d %d", registration, code);
+
+            printf("Digite a matrícula do aluno \n");
+            scanf("%d", &registration);
+            printf("Digite o código da disciplina \n");
+            scanf("%d", &code);
             insert_student(student_in_discipline, student, discipline, registration, code, &count_students_per_disciplines, &count_students, &count_disciplines);
-            sleep(3);
-            sys('clear' || 'cls');
+            
+            
             main_screen();
             break;
         case 5:
             /* code */
             break;
         case 6:
-            /* code */
+            list_per_sex(student, &count_students);
+            main_screen();
             break;
         case 7:
+            printf("%d \n", count_students);
             alphabetic(student, &count_students);
-            sleep(6);
-            system('clear' || 'cls');
             main_screen();
             break;
         case 8:
             birthday_order(student, &count_students);
-            sleep(6);
-            system('clear' || 'cls');
             main_screen();
             break;
         case 9:
-            
+
             break;
         case 10:
             /* code */
             break;
         case 11:
-            /* code */
+            list_per_sex(teacher, &count_teachers);
+            main_screen();
             break;
         case 12:
             alphabetic(teacher, &count_teachers);
-            sleep(6);
-            system('clear' || 'cls');
             main_screen();
             break;
         case 13:
             birthday_order(teacher, &count_teachers);
-            sleep(6);
-            system('clear' || 'cls');
+            
             main_screen();
             break;
         case 14:
-                        
+
             break;
         case 15:
             /* code */
             break;
         case 16:
             students_in_three_disciplines(student_in_discipline, student, &count_students_per_disciplines, &count_students);
-            sleep(3);
-            sys('clear' || 'cls');
             main_screen();
             break;
         case 17:
             overcharge_disciplines(student_in_discipline, discipline, teacher, &count_students_per_disciplines, &count_teachers);
-            sleep(3);
-            sys('clear' || 'cls');
             main_screen();
             break;
         case 18:
             char str[MAX_STR];
             printf("Digite a palavra chave: \n");
             scanf("%s", str);
-            str_research(teacher, student, str, &count_teachers, &count_students  );
-            sleep(6);
-            system('clear' || 'cls');
+            str_research(teacher, student, str, &count_teachers, &count_students);
+            
             main_screen();
             break;
         case 19:
@@ -187,11 +213,8 @@ void main_screen()
             /* code */
             break;
         case 26:
-            int registration, code;
             printf("Digite, na respectiva ordem, a matricula do aluno que se deseja a exclusão e o código da disciplina: \n");
             delete_student_in_discipline(student_in_discipline, registration, code, &count_students_per_disciplines);
-            sleep(3);
-            sys('clear' || 'cls');
             main_screen();
             break;
         case 27:
@@ -209,16 +232,16 @@ void main_screen()
 void new_student(People student[],
                  int *count,
                  int registration,
-                 char name[MAX_STR],
+                 char name[],
                  char sex,
                  int day,
                  int month,
                  int year,
-                 int cpf)
+                 long long cpf)
 {
     // validação
 
-    if (sizeof(student) >= 1023)
+    if (*count >= (TAM_VETOR - 1))
     {
         printf("Não foi possível cadastrar o novo aluno devido a falta de armazenamento");
         return;
@@ -231,59 +254,69 @@ void new_student(People student[],
             printf("Esse aluno já existe! Favor inserir outra matrícula.");
             return;
         }
+    }
 
-        while (name[i] != '\0')
+    if(registration > 999999 || registration < 100000)
+    {
+        printf("A matrícula deve conter 6 dígitos!");
+        return;
+    }
+
+    int i = 0;
+
+    while (name[i] != '\0')
+    {
+        if ((name[i] < 'a' || name[i] > 'z') && (name[i] < 'A' || name[i] > 'Z') && name[i] != ' ')
         {
-            if (name[i] > 'z' || name[i] < 'a' && name[i] > 'Z' || name[i] < 'A')
-            {
-                printf("Por favor, digite apenas letras ao informar o nome!");
-                return;
-            }
-
-            if (name[i] > 'a')
-            {
-                name[i] = name[i] - 'a' + 'A';
-            }
-        }
-
-        if (sex != 'M' || sex != 'm' || sex != 'F' || sex != 'f')
-        {
-            printf("Sexo inválido!");
+            printf("Por favor, digite apenas letras ao informar o nome!");
             return;
         }
 
-        if (day > 31 || day < 0)
+        if (name[i] > 'a')
         {
-            printf("Dia inválido!");
-            return;
+            name[i] = name[i] - 'a' + 'A';
         }
 
-        if (month == 1 || month == 4 || month == 6 || month == 9 || month == 11 && day > 30 || month == 2 && day > 28)
-        {
-            printf("Dia inválido");
-            return;
-        }
+        i++;
+    }
 
-        if (year < CURRENT_YEAR)
-        {
-            printf("Ano inválido");
-            return;
-        }
+    if (sex != 'M' && sex != 'm' && sex != 'F' && sex != 'f')
+    {
+        printf("Sexo inválido!");
+        return;
+    }
 
-        if (sizeof(cpf) != 11)
-        {
-            printf("CPF inválido");
-            return;
-        }
+    if (day > 31 || day < 0)
+    {
+        printf("Dia inválido!");
+        return;
+    }
+
+    if ((month == 1 || month == 4 || month == 6 || month == 9 || month == 11) && day > 30 || (month == 2 && day > 28))
+    {
+        printf("Dia inválido");
+        return;
+    }
+
+    if (year > CURRENT_YEAR)
+    {
+        printf("Ano inválido");
+        return;
+    }
+
+    if (cpf > 99999999999 || cpf < 1000000000)
+    {
+        printf("CPF inválido");
+        return;
     }
 
     // inserção
 
     student[*count].registration = registration;
 
-    while (name != '\0')
+    while (name[i] != '\0')
     {
-        int i = 0;
+
         student[*count].name[i] = name[i];
         i++;
     }
@@ -293,7 +326,8 @@ void new_student(People student[],
     student[*count].month = month;
     student[*count].year = year;
     student[*count].cpf = cpf;
-    *count++;
+
+    (*count)++;
 
     printf("Aluno registrado com sucesso!");
 }
@@ -310,7 +344,7 @@ void new_teacher(People teacher[],
 
     // validação
 
-    if (sizeof(teacher) >= 1023)
+    if (*count >= 1023)
     {
         printf("Não foi possível cadastrar o novo professor devido a falta de armazenamento");
         return;
@@ -329,7 +363,7 @@ void new_teacher(People teacher[],
 
     while (name[i] != '\0')
     {
-        if (name[i] > 'z' || name[i] < 'a' && name[i] > 'Z' || name[i] < 'A')
+        if ((name[i] > 'z' || name[i] < 'a') && (name[i] > 'Z' || name[i] < 'A'))
         {
             printf("Por favor, digite apenas letras ao informar o nome!");
             return;
@@ -343,7 +377,7 @@ void new_teacher(People teacher[],
         i++;
     }
 
-    if (sex != 'M' || sex != 'm' || sex != 'F' || sex != 'f')
+    if (sex != 'M' && sex != 'm' && sex != 'F' && sex != 'f')
     {
         printf("Sexo inválido!");
         return;
@@ -355,7 +389,7 @@ void new_teacher(People teacher[],
         return;
     }
 
-    if (month == 1 || month == 4 || month == 6 || month == 9 || month == 11 && day > 30 || month == 2 && day > 28)
+    if ((month == 1 || month == 4 || month == 6 || month == 9 || month == 11) && day > 30 || (month == 2 && day > 28))
     {
         printf("Data de nascimento inválida");
         return;
@@ -367,7 +401,7 @@ void new_teacher(People teacher[],
         return;
     }
 
-    if (sizeof(cpf) != 11)
+    if (cpf > 99999999999 && cpf < 100000000000)
     {
         printf("CPF inválido");
         return;
@@ -376,7 +410,7 @@ void new_teacher(People teacher[],
     // inserção
 
     teacher[*count].registration = registration;
-    int i = 0;
+    i = 0;
 
     while (name[i] != '\0')
     {
@@ -389,7 +423,7 @@ void new_teacher(People teacher[],
     teacher[*count].month = month;
     teacher[*count].year = year;
     teacher[*count].cpf = cpf;
-    *count++;
+    (*count)++;
 
     printf("Professor registrado com sucesso!");
 }
@@ -400,12 +434,11 @@ void new_discipline(Disciplines discipline[], People teacher[], int *count_disci
 
     int control = FALSE;
 
-    if (sizeof(discipline) >=1023)
+    if (*count_disciplines >= 1023)
     {
         printf("Não foi possível adicionar a disciplina devido a falta de armazenamento");
         return;
     }
-    
 
     for (int i = 0; i < *count_disciplines; i++)
     {
@@ -420,7 +453,7 @@ void new_discipline(Disciplines discipline[], People teacher[], int *count_disci
 
     while (name[i] != '\0')
     {
-        if (name[i] > 'z' || name[i] < 'a' && name[i] > 'Z' || name[i] < 'A')
+        if ((name[i] > 'z' || name[i] < 'a') && (name[i] > 'Z' || name[i] < 'A'))
         {
             printf("Por favor, digite apenas letras ao informar o nome da disciplina!");
             return;
@@ -440,15 +473,13 @@ void new_discipline(Disciplines discipline[], People teacher[], int *count_disci
         {
             control = TRUE;
         }
-        
     }
-    
+
     if (control == FALSE)
     {
         printf("Professor não encontrado! Por favor, corrija a matrícula informada");
         return;
     }
-    
 
     i = 0;
 
@@ -462,9 +493,9 @@ void new_discipline(Disciplines discipline[], People teacher[], int *count_disci
 
     discipline[*count_disciplines].semester = semester;
 
-    discipline[*count_disciplines].teacher_registration = teacher;
+    discipline[*count_disciplines].teacher_registration = teacher_registration;
 
-    *count_disciplines++;
+    (*count_disciplines)++;
 
     printf("Disciplina registrada com sucesso");
 }
@@ -474,62 +505,66 @@ void new_discipline(Disciplines discipline[], People teacher[], int *count_disci
 
 void alphabetic(People a[], int *count)
 {
-    int i, j, aux = 0, position = 0;
-    int l = 1;
-    char temp;
+    int i, j;
+    char temp[MAX_STR];
 
-    for (i = 0; i < *count; i++)
+     for (int i = 0; i < *count; i++)
     {
-        for (j = 1; j <= *count; j++)
-        {
-            if (a[i].name[0] > a[j].name[0])
-            {
-                temp = a[j].name[0];
-                a[j].name[0] = a[i].name[0];
-                a[i].name[0] = temp;
-            }
-        }
+        printf("%s \n", a[i].name);
     }
 
     for (i = 0; i < *count; i++)
     {
-        while (a[position].name[0] == a[position + 1].name[0])
+        for (j = i + 1; j < *count; j++)
         {
-            aux++;
-        }
-
-        for (j = 0; j < aux; j++)
-        {
-            for (int k = j + 1; k <= aux; k++)
+            if (strcmp(a[i].name, a[j].name) > 0)
             {
-                while (a[aux].name[l] == a[aux + 1].name[l] || a[aux].name[l] == '\0')
-                {
-                    l++;
-                }
-
-                if (a[i].name[l] > a[j].name[l])
-                {
-                    temp = a[j].name[1];
-                    a[j].name[1] = a[i].name[1];
-                    a[i].name[1] = temp;
-                }
+                strcpy(temp,a[j].name);
+                strcpy(a[j].name,a[i].name);
+                strcpy(a[i].name,temp);
             }
         }
-
-        position += aux;
-        aux = 0;
     }
+
+    // for (i = 0; i < *count; i++)
+    // {
+    //     while (a[position].name[0] == a[position + 1].name[0])
+    //     {
+    //         aux++;
+    //         position++;
+    //     }
+
+    //     for (j = 0; j < aux; j++)
+    //     {
+    //         for (int k = j + 1; k < aux; k++)
+    //         {
+    //             while (a[position].name[l] == a[position + 1].name[l] || a[position].name[l] != '\0')
+    //             {
+    //                 l++;
+    //             }
+
+    //             if (a[j].name[l] > a[k].name[l])
+    //             {
+    //                 strcpy(temp,a[j].name);
+    //                 strcpy(a[j].name,a[l].name);
+    //                 strcpy(a[l].name,temp);
+    //             }
+    //         }
+    //     }
+
+    //     position += aux;
+    //     aux = 0;
+    // }
 
     for (int i = 0; i < *count; i++)
     {
         printf("%s \n", a[i].name);
     }
-    
 }
 
 void insert_student(Student_per_discipline s_and_d[], People s[], Disciplines d[], int registration, int code, int *count, int *count_students, int *count_disciplines)
 {
-    //validação
+    // validação
     int control_d = FALSE;
     int control_s = FALSE;
 
@@ -540,7 +575,6 @@ void insert_student(Student_per_discipline s_and_d[], People s[], Disciplines d[
             control_s = TRUE;
             break;
         }
-        
     }
 
     for (int i = 0; i < *count_disciplines; i++)
@@ -550,7 +584,6 @@ void insert_student(Student_per_discipline s_and_d[], People s[], Disciplines d[
             control_d == TRUE;
             break;
         }
-        
     }
 
     if (control_d == FALSE || control_s == FALSE)
@@ -558,7 +591,7 @@ void insert_student(Student_per_discipline s_and_d[], People s[], Disciplines d[
         printf("Aluno ou disciplina inexistente!");
     }
 
-    //processamento
+    // processamento
 
     s_and_d[*count].code = code;
     s_and_d[*count].registration = registration;
@@ -604,6 +637,14 @@ void delete_student_in_discipline(Student_per_discipline a[], int registration, 
     {
         printf("Aluno excluído da disciplina com sucesso!");
         *count--;
+    }
+}
+
+void list_per_sex(People a[], int *count)
+{
+    for(int i = 0; i < *count; i++)
+    {
+        printf("%s - %c \n", a[i].name, a[i].sex);
     }
 }
 
@@ -759,7 +800,7 @@ void str_research(People t[], People s[], char str[], int *count_t, int *count_s
 void birthday_order(People a[], int *count)
 {
     int temp, aux = 0, position = 0;
-    char var_temp;
+    char var_temp[MAX_STR];
 
     for (int i = 0; i < *count; i++)
     {
@@ -783,10 +824,9 @@ void birthday_order(People a[], int *count)
                 a[i].month = a[j].month;
                 a[j].month = temp;
 
-                strcmp(var_temp, a[i].name);
-                strcmp(a[i].name, a[j].name);
-                strcmp(a[j].name, var_temp);
-
+                strcpy(var_temp, a[i].name);
+                strcpy(a[i].name, a[j].name);
+                strcpy(a[j].name, var_temp);
 
                 temp = a[i].registration;
                 a[i].registration = a[j].registration;
@@ -795,7 +835,6 @@ void birthday_order(People a[], int *count)
                 temp = a[i].sex;
                 a[i].sex = a[j].sex;
                 a[j].sex = temp;
-
             }
         }
     }
@@ -829,10 +868,9 @@ void birthday_order(People a[], int *count)
                     a[i].month = a[j].month;
                     a[j].month = temp;
 
-                    strcmp(var_temp, a[i].name);
-                    strcmp(a[i].name, a[j].name);
-                    strcmp(a[j].name, var_temp);
-
+                    strcpy(var_temp, a[i].name);
+                    strcpy(a[i].name, a[j].name);
+                    strcpy(a[j].name, var_temp);
 
                     temp = a[i].registration;
                     a[i].registration = a[j].registration;
@@ -880,10 +918,9 @@ void birthday_order(People a[], int *count)
                     a[i].month = a[j].month;
                     a[j].month = temp;
 
-                    strcmp(var_temp, a[i].name);
-                    strcmp(a[i].name, a[j].name);
-                    strcmp(a[j].name, var_temp);
-
+                    strcpy(var_temp, a[i].name);
+                    strcpy(a[i].name, a[j].name);
+                    strcpy(a[j].name, var_temp);
 
                     temp = a[i].registration;
                     a[i].registration = a[j].registration;
