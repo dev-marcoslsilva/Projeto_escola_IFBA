@@ -13,7 +13,7 @@ typedef struct People
     int day;
     int month;
     int year;
-    int cpf;
+    long long cpf;
 
 }People;
 
@@ -63,7 +63,7 @@ void new_teacher(People teacher[],
                 int day,
                 int month,
                 int year,
-                int cpf
+                long long cpf
 );
 
 void new_discipline(Disciplines discipline[], People teacher[], int *count_disciplines, int *count_teachers, int code, char name[], int semester, int teacher_registration);
