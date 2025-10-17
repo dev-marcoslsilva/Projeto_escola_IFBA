@@ -3,6 +3,7 @@
 #include <string.h>
 #include <stdlib.h>
 #include <Windows.h>
+#include <limits.h>
 #include "functions.h"
 
 #define TRUE 1
@@ -186,7 +187,6 @@ void main_screen()
             printf("Digite a palavra chave: \n");
             scanf("%s", str);
             str_research(teacher, student, str, &count_teachers, &count_students);
-            
             main_screen();
             break;
         case 19:
@@ -211,7 +211,10 @@ void main_screen()
             /* code */
             break;
         case 26:
-            printf("Digite, na respectiva ordem, a matricula do aluno que se deseja a exclusão e o código da disciplina: \n");
+            printf("Digite a matricula do aluno que se deseja a exclusão: \n");
+            scanf("%d", &registration);
+            printf("Digite o código da disciplina:: \n");
+            scanf("%d", &code);
             delete_student_in_discipline(student_in_discipline, registration, code, &count_students_per_disciplines);
             main_screen();
             break;
@@ -583,7 +586,7 @@ void delete_student_in_discipline(Student_per_discipline a[], int registration, 
     else
     {
         printf("Aluno excluído da disciplina com sucesso!");
-        *count--;
+        (*count)--;
     }
 }
 
@@ -660,12 +663,31 @@ void overcharge_disciplines(Student_per_discipline s_p_d[], Disciplines d[], Peo
 void str_research(People t[], People s[], char str[], int *count_t, int *count_s)
 {
     // validação
-    int checker = sizeof(str);
+    size_t size = strlen(str);
+
+    if(size > INT_MAX)
+    {
+        printf("Não foi possível executar a função devido à quantidade excessiva de letras.");
+        return;
+    }
+    
+    int checker = (int) size;
+
+
+    printf("%d \n", checker);
 
     if (checker < 3)
     {
         printf("É necessário pelo menos 3 palavras para realizar a busca!");
         return;
+    }
+
+    for(int i = 0; str[i] != '\0'; i++)
+    {
+        if(str[i] < 'A' || str[i] > 'Z')
+        {
+            str[i] = str[i] - 'a' + 'A';
+        }
     }
 
     // função
@@ -674,21 +696,18 @@ void str_research(People t[], People s[], char str[], int *count_t, int *count_s
 
     printf("Professores: \n");
 
-    for (int i = 0; i <= *count_t; i++)
+    for (int i = 0; i < *count_t; i++)
     {
         int j = 0;
         int k = 0;
 
-        while (t[i].name[j] != '\0' || str[k] != '\0')
+        while (t[i].name[j] != '\0' && str[k] != '\0')
         {
             if (t[i].name[j] == str[k])
             {
                 k++;
                 same_char++;
-            }
-
-            if (t[i].name[j] != str[k])
-            {
+            }else {
                 k = 0;
                 same_char = 0;
             }
@@ -704,23 +723,20 @@ void str_research(People t[], People s[], char str[], int *count_t, int *count_s
         same_char = 0;
     }
 
-    printf("Alunos: \n");
+    printf(" \n Alunos: \n");
 
-    for (int i = 0; i <= *count_s; i++)
+    for (int i = 0; i < *count_s; i++)
     {
         int j = 0;
         int k = 0;
 
-        while (s[i].name[j] != '\0' || str[k] != '\0')
+        while (s[i].name[j] != '\0' && str[k] != '\0')
         {
             if (s[i].name[j] == str[k])
             {
                 k++;
                 same_char++;
-            }
-
-            if (s[i].name[j] != str[k])
-            {
+            } else {
                 k = 0;
                 same_char = 0;
             }

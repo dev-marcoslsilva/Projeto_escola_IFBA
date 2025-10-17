@@ -47,7 +47,7 @@ void main_screen();
 void new_student(People student[], 
                 int *count, 
                 int registration, 
-                char name[MAX_STR], 
+                char name[], 
                 char sex,
                 int day,
                 int month,
